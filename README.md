@@ -8,7 +8,7 @@ You can find full code [here](src/tests/calc.cc).
 
 ### Defining the Token
 
-A lexer needs some king of Token to return as Lexem to you. Because of that we define in our codebase a `typename Token`, either in headers or implementation code dependending on specific needs.
+A lexer needs some kind of Token to return as Lexem to you. Because of that, we define in our codebase a `typename Token`, either in headers or implementation code dependending on specific needs.
 
 Using `typename` as specifier we aren't tied to a `class` but we can have more various kinds of type. In this case an enum is enough.
 
