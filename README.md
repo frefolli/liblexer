@@ -17,6 +17,18 @@ enum Token {
 };
 ```
 
+Since `Lexem.toString` uses `std::ostringstream` to get string representation of token, we can give our enum such representation:
+
+```c++
+std::ostream& operator<<(std::ostream& out, Token token) {
+    switch (token) {
+        case Token::INTEGER : out << "INTEGER"; break;
+        ...
+    }
+    return out;
+}
+```
+
 ### Defining the Lexer
 
 Now that a token type exists in our scope, we can use it to define the lexer rules: the rules by which the lexer will be forming lexems with input as `std::string` and tokens.
