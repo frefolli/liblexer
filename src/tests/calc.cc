@@ -24,15 +24,15 @@ std::ostream& operator<<(std::ostream& out, Token token) {
 }
 
 Lexer<Token> lexer ({
-    LexerRule<Token>("^[0-9]+", Token::INTEGER, false),
-    LexerRule<Token>("^\\+", Token::ADD, false),
-    LexerRule<Token>("^\\-", Token::SUB, false),
-    LexerRule<Token>("^\\*", Token::MUL, false),
-    LexerRule<Token>("^\\\\", Token::DIV, false),
-    LexerRule<Token>("^\\(", Token::LPAR, false),
-    LexerRule<Token>("^\\)", Token::RPAR, false),
-    LexerRule<Token>("^\\s+", Token::SPACE, true),
-    LexerRule<Token>("^quit", Token::QUIT, false)
+    {"^[0-9]+", Token::INTEGER, false},
+    {"^\\+", Token::ADD, false},
+    {"^\\-", Token::SUB, false},
+    {"^\\*", Token::MUL, false},
+    {"^\\\\", Token::DIV, false},
+    {"^\\(", Token::LPAR, false},
+    {"^\\)", Token::RPAR, false},
+    {"^\\s+", Token::SPACE, true},
+    {"^quit", Token::QUIT, false}
 });
 
 void RunCalc() {
@@ -46,7 +46,7 @@ void RunCalc() {
         try {
             lexems = lexer.process(line);
             std::cout << "\"" << line << "\"" << std::endl;
-            for (Lexem<Token>& lexem : lexems) {
+            for (const Lexem<Token>& lexem : lexems) {
                 std::cout << " -  " << lexem.toString() << std::endl;
                 if (lexem.getToken() == Token::QUIT)
                     active = false;

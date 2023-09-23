@@ -1,6 +1,6 @@
 # Liblexer
 
-A header-only lexer generator library, releasing the power of generic programming and reducing dependency between components: this library only declare miniman constructs to run a lexer, while you provide definitions as compile-time data.
+A header-only lexer generator library, releasing the power of generic programming and reducing dependency between components: this library only declares minimal constructs to run a lexer, while you provide definitions as compile-time data.
 
 ## Example: Calculator tokenizer
 
@@ -24,7 +24,7 @@ Now that a token type exists in our scope, we can use it to define the lexer rul
 
 ```c++
 Lexer = [
-    LexerRule(
+    LexerRule = (
         regex (or string),
         token,
         ignore // whether to append or not the token to result
@@ -36,9 +36,39 @@ given the above formal definition we can write an example lexer:
 
 ```c++
 Lexer<Token> lexer ({
-    LexerRule<Token>("^[0-9]+", Token::INTEGER, false),
+    {"^[0-9]+", Token::INTEGER, false},
     ...
 });
 ```
 
+As you can see, it isn't so dirty to declare, just let Template Deduction do the rest for you.
+
 ### Using the lexer
+
+The following example take a line for `std::cin` and tokenizes it with the lexer we just defined. If no lexem could be taken from a point of the string an error is raised by the lexer. Finally if the token `QUIT` is found, we close the program.
+
+```c++
+void RunCalc() {
+    std::string line;
+    std::vector<Lexem<Token>> lexems;
+    std::cout << "liblexer/calc" << std::endl;
+    bool active = true;
+    while (active) {
+        std::cout << ">> ";
+        std::getline(std::cin, line);
+        try {
+            lexems = lexer.process(line);
+            std::cout << "\"" << line << "\"" << std::endl;
+            for (Lexem<Token>& lexem : lexems) {
+                std::cout << " -  " << lexem.toString() << std::endl;
+                if (lexem.getToken() == Token::QUIT)
+                    active = false;
+            }
+        } catch(const LexerError<Token>& error) {
+            std::cout << error.what() << " while processing:" << std::endl;
+            std::cout << "\"" << line << "\"" << std::endl;
+        }
+    }
+    std::cout << "safely quitting ..." << std::endl;
+}
+```
