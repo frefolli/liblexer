@@ -7,21 +7,21 @@
 template<typename Token>
 class Lexem {
     private:
-        std::string match;
+        std::string string;
         Token token;
     public:
-        Lexem(std::string match, Token token) :
-            match(match), token(token) {
+        Lexem(std::string string, Token token) :
+            string(string), token(token) {
         }
         Token getToken() const {
             return token;
         }
-        std::string getMatch() const {
-            return match;
+        std::string getString() const {
+            return string;
         }
         std::string toString() const {
             std::ostringstream rep ("");
-            rep << "[" << token << ": \"" << match << "\"]";
+            rep << "[" << token << ": \"" << string << "\"]";
             return rep.str();
         }
 };
