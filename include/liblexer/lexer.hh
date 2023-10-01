@@ -32,8 +32,10 @@ class Lexer {
                         break;
                     }
                 }
-                if (! matched)
+                if (! matched) {
+                    std::cerr << std::string(beginIt, endIt);
                     throw LexerError<Token>();
+                }
             }
             return lexems;
         }
