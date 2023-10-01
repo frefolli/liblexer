@@ -5,7 +5,6 @@
 #include <liblexer/lexem.hh>
 #include <liblexer/error.hh>
 #include <vector>
-#include <iostream>
 
 template<typename Token>
 class Lexer {
@@ -34,8 +33,7 @@ class Lexer {
                     }
                 }
                 if (! matched) {
-                    std::cerr << std::string(beginIt, endIt);
-                    throw LexerError<Token>();
+                    throw LexerError<Token>("not matching token found for \n" + std::string(beginIt, endIt));
                 }
             }
             return lexems;

@@ -52,8 +52,7 @@ void RunCalc() {
                     active = false;
             }
         } catch(LexerError<Token>& error) {
-            std::cout << error.what() << " while processing:" << std::endl;
-            std::cout << "\"" << line << "\"" << std::endl;
+            std::cout << error.what() << std::endl;
         }
     }
     std::cout << "safely quitting ..." << std::endl;
