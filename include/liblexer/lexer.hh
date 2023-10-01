@@ -5,6 +5,7 @@
 #include <liblexer/lexem.hh>
 #include <liblexer/error.hh>
 #include <vector>
+#include <iostream>
 
 template<typename Token>
 class Lexer {
